@@ -34,9 +34,6 @@ function onRequest_b (req, res) {
 }
 
 
-io.on('connection',()=>{
-     console.log('new websocket connection')
-})
 
 
 // Store people in chatroom
@@ -47,6 +44,10 @@ let chat_messages = [];
 
 //??????
 const io = socketio(server)
+io.on('connection',()=>{
+    console.log('new websocket connection')
+})
+
 io.on('connection',(socket)=>{
     socket.emit('message', 'Welcome!') //emits the event to the single client
     
