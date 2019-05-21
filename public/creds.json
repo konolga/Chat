@@ -1,0 +1,13 @@
+[{
+    "user": "one",
+    "password": "",
+    "host": "",
+    "port": 8080
+}
+,
+{
+    "user": "two",
+    "password": "",
+    "host": "",
+    "port": 8082
+}]
