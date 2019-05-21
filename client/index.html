@@ -1,0 +1,46 @@
+<html>
+    <body>
+        
+        <div class="container">
+
+
+                <div class="row" id="userFormArea">
+                            <div class="col-md-12">
+                            <form id="userForm">
+                                <div class="form-group">
+                                    <label>Enter Username</label>
+                                    <textarea class="form-control" id="message"> </textarea>
+                                <br/>
+                                </div>
+                                    <input id='loginButton' type="submit" class="btn btn-primary" value="Login">
+                            </form>
+                        </div>
+                </div>
+
+
+            <div class="row" id="messageArea">
+                <div class="col-md-4">
+                <h3>Online users</h3>
+                <ul class='list-group' id="users"></ul>
+            </div>
+            <div class="col-md-8">
+                <div class="chat" id="chat"></div>
+                <form id="messageForm">
+                    <div class="form-group">
+                        <label for="">Enter message</label>
+                        <textarea class="form-control" id="message"> </textarea>
+                    <br/>
+                    </div>
+                        <input id='messageButton' type="submit" class="btn btn-primary" value="Send message">
+                </form>
+        </div>
+    </div>
+</div>
+       
+    <script src ="/socket.io/socket.io.js"></script>
+    <script src ="/js/chat.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+</body>
+</html>
