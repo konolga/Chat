@@ -7,8 +7,8 @@ const fs = require('fs');
 const redis = require('redis');
 const app = express();
 
-
 const io = socketio(server)
+
 const port1 = process.env.PORT || 8080;
 const port2 = process.env.PORT || 8081;
 
@@ -22,20 +22,12 @@ app.use(bodyParser.urlencoded({
 
 
 
-const server = http.createServer(app, onRequest).listen(onRequest);
-http.createServer(app, onRequest_b).listen(port2);
-
-function onRequest (req, res) {
-    if(req.socket.localPort==port1){
-        res.write(`Server is up on port ${port1}!`);
-
-    }
-else   res.write(`Server is up on port ${port2}!`);
-res.end();
-return req.PORT;
-
-}
-
+const server1 = http.createServer(onRequest).listen(port1);
+const server2 = http.createServer(onRequest).listen(port2);
+function onRequest_b (req, res) {
+    res.write(`Server is up on port ${port1}!`);
+    res.end();
+  }
 function onRequest_b (req, res) {
   res.write(`Server is up on port ${port2}!`);
   res.end();
