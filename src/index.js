@@ -7,7 +7,7 @@ const fs = require('fs');
 const redis = require('redis');
 const app = express();
 
-const io = socketio(server)
+
 
 const port1 = process.env.PORT || 8080;
 const port2 = process.env.PORT || 8081;
@@ -44,6 +44,9 @@ let chatters = [];
 // Store messages in chatroom
 let chat_messages = [];
 
+
+//??????
+const io = socketio(server)
 io.on('connection',(socket)=>{
     socket.emit('message', 'Welcome!') //emits the event to the single client
     
