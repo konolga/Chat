@@ -1,25 +1,23 @@
+//server
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const socketio = require('socket.io');
-const fs = require('fs');
-const redis = require('redis');
 const app = express();
 const Filter = require('bad-words')
 const { generateMessage } = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
-const socketAuth = require('./users/auth');
+
 const publicDirectoryPath = path.join(__dirname,'../public')
 app.use(express.static(publicDirectoryPath));
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 const server = require('http').Server(app);
 const io = socketio(server);
 const port = process.env.PORT||8080;
-//server.listen(port)
+
+server.listen(port)
 
 
 io.on('connection', (socket) => {
@@ -31,7 +29,6 @@ io.on('connection', (socket) => {
             return callback(error)
         }
 
-        socket.emit('authentication', { token: tokenInput.value,});
 
         socket.join(user.room)
         socket.emit('message', generateMessage('Admin', 'Welcome!'))
@@ -77,8 +74,6 @@ io.on('connection', (socket) => {
         }
     })
 })
-
-
-server.listen(port, () => {
-    console.log(`Server is up on port ${port}!`)
-})
+//when login token can be socket.id
+//socket.to(anotherSocket.id).emit('message');
+//socketid is room

@@ -1,3 +1,4 @@
+//client
 const socket = io()
 
 // Elements
