@@ -1,46 +1,21 @@
+<!DOCTYPE html>
 <html>
+    <head>
+        <title>Chat App</title>
+        <link rel="stylesheet" href="/css/styles.min.css">
+    </head>
     <body>
-        
-        <div class="container">
-
-
-                <div class="row" id="userFormArea">
-                            <div class="col-md-12">
-                            <form id="userForm">
-                                <div class="form-group">
-                                    <label>Enter Username</label>
-                                    <textarea class="form-control" id="message"> </textarea>
-                                <br/>
-                                </div>
-                                    <input id='loginButton' type="submit" class="btn btn-primary" value="Login">
-                            </form>
-                        </div>
-                </div>
-
-
-            <div class="row" id="messageArea">
-                <div class="col-md-4">
-                <h3>Online users</h3>
-                <ul class='list-group' id="users"></ul>
-            </div>
-            <div class="col-md-8">
-                <div class="chat" id="chat"></div>
-                <form id="messageForm">
-                    <div class="form-group">
-                        <label for="">Enter message</label>
-                        <textarea class="form-control" id="message"> </textarea>
-                    <br/>
-                    </div>
-                        <input id='messageButton' type="submit" class="btn btn-primary" value="Send message">
+        <div class="centered-form">
+            <div class="centered-form__box">
+                <h1>Join</h1>
+                <form action="/chat.html">
+                    <label>Display name</label>
+                    <input type="text" name="username" placeholder="Display name" required>
+                    <label>Room</label>
+                    <input type="text" name="room" placeholder="Room" required>
+                    <button>Join</button>
                 </form>
+            </div>
         </div>
-    </div>
-</div>
-       
-    <script src ="/socket.io/socket.io.js"></script>
-    <script src ="/js/chat.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
-
-</body>
+    </body>
 </html>

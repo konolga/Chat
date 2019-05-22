@@ -45,5 +45,8 @@ module.exports = {
       path : '/var/www/production',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 };

@@ -1,42 +1,34 @@
 const users = []
 
-const addUser = ({ id, username, token, password}) => {
+const addUser = ({ id, username, room }) => {
     // Clean the data
-    username = username.trim().toLowerCase();
-
+    username = username.trim().toLowerCase()
+    room = room.trim().toLowerCase()
 
     // Validate the data
-    if (!username) {
+    if (!username || !room) {
         return {
-            error: 'Username is required!'
+            error: 'Username and room are required!'
         }
     }
 
     // Check for existing user
     const existingUser = users.find((user) => {
-        return user.token === token && user.username === username
+        return user.room === room && user.username === username
     })
 
     // Validate username
     if (existingUser) {
         return {
-            error: 'Username is taken!'
+            error: 'Username is in use!'
         }
     }
 
     // Store user
-    const user = { id, username, token }
+    const user = { id, username, room }
     users.push(user)
     return { user }
-
 }
-
-
-addUser({
-    id:22,
-    usename:"olga",
-    token:1
-})
 
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.id === id)
@@ -50,13 +42,14 @@ const getUser = (id) => {
     return users.find((user) => user.id === id)
 }
 
-const getUsers = () => {
-    return users
+const getUsersInRoom = (room) => {
+    room = room.trim().toLowerCase()
+    return users.filter((user) => user.room === room)
 }
 
 module.exports = {
     addUser,
     removeUser,
     getUser,
-    getUsers
+    getUsersInRoom
 }
