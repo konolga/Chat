@@ -9,6 +9,13 @@ const { generateMessage } = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
 
 const publicDirectoryPath = path.join(__dirname,'../public')
+app.use( (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", port);
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use(express.static(publicDirectoryPath));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
