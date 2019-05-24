@@ -1,65 +1,77 @@
-import React from "react";
-import io from 'socket.io-client';
-const socket = io('http://localhost:8080');
+import React, { Component } from 'react';
+import {socket} from './App';
 
-class Chat extends React.Component{
+class Chat extends Component{
 
     constructor(){
         super()
         this.state={
-            message: "dd",
-            text:"",
-            messages: []
-        }   
-socket.on('message', (username, text)=>{
-          generateMessage(username, text);
-      });
+            message: "",
+            messages: [],
+            room: "",
+            users: []
+        }
 
-
-    const generateMessage = (username, text) => {
-            this.setState(  {message: {
-                                        username: username,
-                                        text: text,
-                                        createdAt: new Date().getTime()
-                                     }
-                             })} 
-
-
-    this.sendMessage = ev =>{
-        ev.preventDefault();
-        socket.emit('sendMessage',  {
-            message: this.state.message
+        socket.on('roomData', ({ room, users }) => {
+            this.setState({room: room, users: [...this.state.users, ...users]});
         })
-        this.setState({text: ''});
-    }
- }
+   
+    };
+      handleChange=(name)=> (event) =>{
+        this.setState({error:""})
+        this.setState({[name]:event.target.value})};
 
 
-    render(){           
-            return (              
-            <div className="chat">
-            <div id="sidebar" className="chat__sidebar">    
-            </div>
-            <div className="chat__main">
+        sendMessage=(event)=>{
+           
+            event.preventDefault();
+           
+            socket.emit('sendMessage', this.state.message, (error) => {
+                if (error) {return console.log(error)}   
+            })
+           this.setState({message: ""})
+
+        };
+
+    
+
+
+            inputForm = (message)=>(
+                <div className="chat__main">
                 <div id="messages" className="chat__messages"></div>   
                 <div className="compose">
                     <form id="message-form">
                         <input name="message" placeholder="Message" required autoComplete="off"
-                           // value={this.state.message} 
-                         onChange={ev => this.setState({message: ev.target.value})}
-                         />
+                        value = {message}
+                        onChange = {this.handleChange("message")}
+                        />
                         <button onClick={this.sendMessage}>Send</button>
                     </form>  
                 </div>
-            </div>
+            </div>   
+            );
+
+            roomForm = (room, users)=>(
+                <div id="sidebar-template" type="text/html">
+                <h2 className="room-title">Room:{room}</h2>
+                <h3 className="list-title">Users</h3>
+                <ul className="users">
+                    {users.map((user, i)=>(<li key={i}>{i+1}: {user.username}</li>))}
+                </ul>
+                </div>
+            )
+               
+
+    render(){     
+        const {message, room, users} = this.state;      
+            return ( 
+            <div className="chat">
+              <div id="sidebar" className="chat__sidebar">
+              {this.roomForm(room, users)}</div>                  
+              {this.inputForm(message)}</div> 
+
             
-                  {/*   <p><span className="message__name">{this.state.message.username}</span>
-                    <span className="message__meta">{this.state.message.createdAt}</span>
-                    </p>
-                    <p>{this.state.message.text}</p> */}
-            </div> 
-           )
-        
+           )       
     }
 }
 

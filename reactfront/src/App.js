@@ -1,8 +1,11 @@
 
 import React, { Component } from 'react';
-import './App.css';
+import MainRouter from './MainRouter';
+import {BrowserRouter} from 'react-router-dom';
+import './css/App.css';
+import './css/styles.min.css';
 
-import Chat from "./Chat";
+//import Chat from "./Chat";
 import io from 'socket.io-client';
 
 
@@ -12,14 +15,18 @@ class App extends Component {
     super()
     this.state = {
        messages: [],
-       message: ''
+       message: '',
+       users:[],
+       room:""
     }
   };
 
   render() {
     return (
       <div className="app">
-       <Chat/>
+       <BrowserRouter>
+       <MainRouter/>
+       </BrowserRouter>
      </div>
     )
   }
