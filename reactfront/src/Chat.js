@@ -7,7 +7,8 @@ class Chat extends React.Component{
     constructor(){
         super()
         this.state={
-            message: {},
+            message: "dd",
+            text:"",
             messages: []
         }   
 socket.on('message', (username, text)=>{
@@ -29,9 +30,11 @@ socket.on('message', (username, text)=>{
         socket.emit('sendMessage',  {
             message: this.state.message
         })
-        this.setState({message: ''});
+        this.setState({text: ''});
     }
  }
+
+
     render(){           
             return (              
             <div className="chat">
@@ -41,16 +44,19 @@ socket.on('message', (username, text)=>{
                 <div id="messages" className="chat__messages"></div>   
                 <div className="compose">
                     <form id="message-form">
-                        <input name="message" placeholder="Message" required autoComplete="off" onChange={ev => this.setState({message: ev.target.value})}/>
+                        <input name="message" placeholder="Message" required autoComplete="off"
+                           // value={this.state.message} 
+                         onChange={ev => this.setState({message: ev.target.value})}
+                         />
                         <button onClick={this.sendMessage}>Send</button>
                     </form>  
                 </div>
             </div>
-            <p>
-                    <span className="message__name">{this.state.message.username}</span>
+            
+                  {/*   <p><span className="message__name">{this.state.message.username}</span>
                     <span className="message__meta">{this.state.message.createdAt}</span>
                     </p>
-                    <p>{this.state.message.text}</p>
+                    <p>{this.state.message.text}</p> */}
             </div> 
            )
         
