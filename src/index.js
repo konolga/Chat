@@ -5,7 +5,7 @@ const path = require('path');
 const socketio = require('socket.io');
 const app = express();
 const Filter = require('bad-words')
-const { generateMessage } = require('./messages/messages')
+const { generateMessage, getMessages} = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
 
 const publicDirectoryPath = path.join(__dirname,'../public')
@@ -38,11 +38,14 @@ io.on('connection', (socket) => {
 
 
         socket.join(user.room)
-        socket.emit('message', generateMessage('Admin', 'Welcome!'))
-        socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined!`))
+        socket.emit('message', 
+                    {message: generateMessage('Admin', 'Welcome!'),
+                    messages: getMessages()})
+        socket.broadcast.to(user.room).emit('message', {message: generateMessage('Admin', `${user.username} has joined!`), messages: getMessages()})
         io.to(user.room).emit('roomData', {
             room: user.room,
-            users: getUsersInRoom(user.room)
+            users: getUsersInRoom(user.room),
+            user: user
         })
 
         callback();
@@ -64,7 +67,13 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed!')
         }
 
-        io.to(user.room).emit('message', generateMessage(user.username, message))
+        if(user){
+            io.to(user.room).emit('message', {
+                message: generateMessage(user.username, message),
+                messages: getMessages()
+            })
+        }
+        
         callback()
     })
 
@@ -73,7 +82,10 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id)
 
         if (user) {
-            io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left!`))
+            io.to(user.room).emit('message', 
+           { message: generateMessage('Admin', `${user.username} has left!`),
+            messages: getMessages()} )
+
             io.to(user.room).emit('roomData', {
                 room: user.room,
                 users: getUsersInRoom(user.room)
