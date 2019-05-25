@@ -7,6 +7,8 @@ const app = express();
 const Filter = require('bad-words')
 const { generateMessage, getMessages} = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
+const Redis = require('redis');
+const redisAdapter = require('socket.io-redis');
 
 const publicDirectoryPath = path.join(__dirname,'../public')
 app.use( (req, res, next) => {
@@ -23,6 +25,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 const server = require('http').Server(app);
 const io = socketio(server);
 const port = process.env.PORT||8080;
+const redisConfig = {
+    port: process.env.REDIS_PORT || 6379,
+    host: process.env.REDIS_HOST || '127.0.0.1',
+  };
+  const pub = Redis.createClient(redisConfig);
+  const sub = Redis.createClient(redisConfig);
+  
+io.adapter(redisAdapter({ pubClient: pub, subClient: sub }));
 
 server.listen(port)
 

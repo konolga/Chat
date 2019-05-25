@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {socket} from './App';
-import {moment} from 'react-moment';
+
 
 class Chat extends Component{
 

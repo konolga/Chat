@@ -21,6 +21,8 @@
     "bad-words": "^3.0.2",
     "bluebird": "^3.5.4",
     "express": "^4.17.0",
+    "farmhash": "^2.1.0",
+    "jwt-redis": "^5.0.5",
     "moment": "^2.24.0",
     "pm2-logrotate": "^2.6.0",
     "redis": "^2.8.0",
