@@ -16,7 +16,7 @@ class Chat extends Component{
             createdAt: ""
         }
         socket.on('roomData', ({ room, users}) => {
-            this.setState({room: room, users: [...this.state.users, ...users]});
+            this.setState({room: room, users: users});
         })
 
         socket.on('message', ({messages}) => {

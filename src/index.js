@@ -7,7 +7,6 @@ const app = express();
 const Filter = require('bad-words')
 const { generateMessage, getMessages} = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
-const Redis = require('redis');
 const redisAdapter = require('socket.io-redis');
 
 const publicDirectoryPath = path.join(__dirname,'../public')
@@ -25,17 +24,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 const server = require('http').Server(app);
 const io = socketio(server);
 const port = process.env.PORT||8080;
-const redisConfig = {
-    port: process.env.REDIS_PORT || 6379,
-    host: process.env.REDIS_HOST || '127.0.0.1',
-  };
-  const pub = Redis.createClient(redisConfig);
-  const sub = Redis.createClient(redisConfig);
-  
-io.adapter(redisAdapter({ pubClient: pub, subClient: sub }));
+
 
 server.listen(port)
-
+io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
 
 io.on('connection', (socket) => {
 
@@ -49,10 +41,10 @@ io.on('connection', (socket) => {
 
         socket.join(user.room)
         socket.emit('message', 
-                    {message: generateMessage('Admin', 'Welcome!'),
+                    {message: generateMessage('Admin', `Welcome, ${user.username}!`),
                     messages: getMessages()})
         socket.broadcast.to(user.room).emit('message', {message: generateMessage('Admin', `${user.username} has joined!`), messages: getMessages()})
-        io.to(user.room).emit('roomData', {
+        io.in(user.room).emit('roomData', {
             room: user.room,
             users: getUsersInRoom(user.room),
             user: user
@@ -92,7 +84,7 @@ io.on('connection', (socket) => {
         const user = removeUser(socket.id)
 
         if (user) {
-            io.to(user.room).emit('message', 
+            socket.broadcast.to(user.room).emit('message', 
            { message: generateMessage('Admin', `${user.username} has left!`),
             messages: getMessages()} )
 
@@ -103,6 +95,3 @@ io.on('connection', (socket) => {
         }
     })
 })
-//when login token can be socket.id
-//socket.to(anotherSocket.id).emit('message');
-//socketid is room
