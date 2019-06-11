@@ -9,7 +9,7 @@ const { generateMessage, getMessages} = require('./messages/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
 const redisAdapter = require('socket.io-redis');
 
-const publicDirectoryPath = path.join(__dirname,'../public')
+
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", port);
     res.header("Access-Control-Allow-Credentials", "true");
@@ -17,14 +17,18 @@ app.use( (req, res, next) => {
     next();
   });
 
-app.use(express.static(publicDirectoryPath));
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, "reactfront", "build")))
 
 const server = require('http').Server(app);
 const io = socketio(server);
 const port = process.env.PORT||8080;
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/reactfront/build/index.html"));
+  }); 
 
 server.listen(port)
 io.adapter(redisAdapter(process.env.REDIS_URL));
