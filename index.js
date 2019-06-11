@@ -5,8 +5,8 @@ const path = require('path');
 const socketio = require('socket.io');
 const app = express();
 const Filter = require('bad-words')
-const { generateMessage, getMessages} = require('./messages/messages')
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users/users')
+const { generateMessage, getMessages} = require('./src/messages/messages')
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./src/users/users')
 const redisAdapter = require('socket.io-redis');
 
 
