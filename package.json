@@ -4,8 +4,9 @@
   "description": "chat server application that will use bidirectional communication",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "redis-server /usr/local/etc/redis.conf & nodemon src/index.js"
+    "start": "edis-server /usr/local/etc/redis.conf & node src/index.js",
+    "dev": "redis-server /usr/local/etc/redis.conf & nodemon src/index.js",
+    "heroku-postbuild": "cd reactfront && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",

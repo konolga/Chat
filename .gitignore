@@ -2,7 +2,8 @@ helpers
 # dependencies
 /node_modules
 node_modules
-
+.vscode/
+.vscode
 
 # System Files
 .DS_Store

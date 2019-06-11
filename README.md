@@ -1,6 +1,6 @@
 # Chat app with React, Node, Socket.io
 
-One Paragraph of project description goes here
+
 
 ## Getting Started
 

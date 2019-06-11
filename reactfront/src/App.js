@@ -33,5 +33,5 @@ class App extends Component {
 }
 
  
-export const socket = io('http://localhost:8080');
+export const socket = io(process.env.REACT_APP_API_URL||'localhost:8080');
 export default App
