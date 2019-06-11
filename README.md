@@ -8,9 +8,11 @@ To run frontend use:
 ```
 npm start
 ```
-To run backend you can use: npm run dev
-or 
-use Pm2 to run server on two different ports (ne on 8080 and the other on 8081): 
+To run backend:
+ ```
+ npm run dev`
+ ``
+Also there is an option to use Pm2 to run server on two different ports (ne on 8080 and the other on 8081): 
 ```
 ./node_modules/.bin/pm2-runtime start ecosystem.config.js
 ```
@@ -32,7 +34,6 @@ In this chat user communicate in the room.
 
 ### Server side with Node.js, Express and Socket.io
 
-The server manage sall the communication in the platform using bidirectional communication technologies.
-The platform run on two different ports(one on 8080 and the other on 8081)
-Using Redis to manage communications between the servers
+The server manages all the communication in the platform using bidirectional communication technologies.
+Using Redis to manage communications between the sockets
 
