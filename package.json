@@ -2,22 +2,15 @@
   "name": "chat",
   "version": "1.0.0",
   "description": "chat server application that will use bidirectional communication",
-  "main": "App.js",
+  "main": "app.js",
   "scripts": {
     "start": "redis-server & node src/index.js",
     "dev": "redis-server /usr/local/etc/redis.conf & nodemon src/index.js",
     "heroku-postbuild": "cd reactfront && npm install --only=dev && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/konolga/Chat.git"
-  },
-  "author": "",
+  "author": "Olga Kon",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/konolga/Chat/issues"
-  },
-  "homepage": "https://github.com/konolga/Chat#readme",
+  "homepage": "https://chat-app-node-react.herokuapp.com/",
   "dependencies": {
     "axios": "^0.19.0",
     "bad-words": "^3.0.2",

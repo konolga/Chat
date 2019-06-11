@@ -4,8 +4,6 @@ import MainRouter from './MainRouter';
 import {BrowserRouter} from 'react-router-dom';
 import './css/App.css';
 import './css/styles.min.css';
-
-//import Chat from "./Chat";
 import io from 'socket.io-client';
 
 

@@ -2,7 +2,7 @@
   "name": "reactfront",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://blog-app-mern.herokuapp.com/",
+  "homepage": "https://chat-app-node-react.herokuapp.com/",
   "dependencies": {
     "import": "0.0.6",
     "react": "^16.8.6",
