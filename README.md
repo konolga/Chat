@@ -30,17 +30,9 @@ Chat room with a list of online users, and if another user is logging in to the 
 In this chat user communicate in the room.
 
 
-TODO: Comunicate between two users on click the username
-
-TODO: Authentication with Token
-
 ### Server side with Node.js, Express and Socket.io
 
 The server manage sall the communication in the platform using bidirectional communication technologies.
 The platform run on two different ports(one on 8080 and the other on 8081)
 Using Redis to manage communications between the servers
 
-
-TODO: Add direct messages as a room with two participiants
-
-TODO: Use Redis to manage authorized users
