@@ -27,7 +27,7 @@ const port = process.env.PORT||8080;
 
 
 server.listen(port)
-io.adapter(redisAdapter({ host: 'localhost', port: 6379 }));
+io.adapter(redisAdapter(process.env.REDIS_URL));
 
 io.on('connection', (socket) => {
 
